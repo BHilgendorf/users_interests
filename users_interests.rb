@@ -20,10 +20,11 @@ end
 
 get "/users/:name" do
 
-  # binding.pry
   user = params[:name].to_sym
+  @name = params[:name]
   @email = @user_data[user][:email]
   @interests = @user_data[user][:interests].join(", ")
+  @list = @users.select { |name| name != user}
 
 
 # display user name, email address and interest (comma seperated)

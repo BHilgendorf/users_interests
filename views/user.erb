@@ -1,5 +1,9 @@
-<h1><%= params[:name].capitalize %></h1>
+<h1><%= @name.capitalize %></h1>
 <ul>
   <li>Email address: <%= @email %></li>
   <li>Interests: <%= @interests %></li>
 </ul>
+
+<% @list.each do |user| %>
+  <a href="/users/<%= user %>" ><%= user %></a>
+<% end %> 
