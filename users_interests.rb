@@ -1,12 +1,20 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require 'tilt/erubis'
+
 require 'yaml'
-require 'pry'
+
+helpers do
+  def count_interests
+    @users.inject(0) do |count, user|  
+      count + @user_data[user][:interests].size
+    end
+  end
+end
 
 before do
-  @user_data = YAML.load_file('users.yaml')  #hash with user names as keys
+  @user_data = YAML.load_file('users.yaml')
   @users = @user_data.keys
-
 end
 
 get "/" do
@@ -23,10 +31,8 @@ get "/users/:name" do
   user = params[:name].to_sym
   @name = params[:name]
   @email = @user_data[user][:email]
-  @interests = @user_data[user][:interests].join(", ")
-  @list = @users.select { |name| name != user}
+  @interests = @user_data[user][:interests]
+  @list = @users.select { |name| name != user}.sort
 
-
-# display user name, email address and interest (comma seperated)
- erb :user
+  erb :user
 end

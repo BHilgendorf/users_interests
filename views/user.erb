@@ -1,7 +1,7 @@
 <h1><%= @name.capitalize %></h1>
 <ul>
   <li>Email address: <%= @email %></li>
-  <li>Interests: <%= @interests %></li>
+  <li>Interests: <%= @interests.join(", ") %></li>
 </ul>
 
 <% @list.each do |user| %>
